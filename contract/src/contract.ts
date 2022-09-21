@@ -1,18 +1,39 @@
-import { NearBindgen, near, call, view } from "near-sdk-js";
+import { NearBindgen, near, call, view, initialize } from "near-sdk-js";
 
 @NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
+class Tip {
+  tipReceiver: string = "n8thegr8.near";
+  tippers: string[] = [];
+  totalTips: bigint = BigInt(0);
 
-  @view({}) // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
+  @initialize({})
+  init({ receiver }: { receiver: string }): void {
+    this.tipReceiver = receiver;
   }
 
-  @call({}) // This method changes the state, for which it cost gas
-  set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
-    near.log(`Saving greeting ${message}`);
-    this.greeting = message;
+  @view({})
+  get_tipper(): string[] {
+    return this.tippers;
+  }
+
+  @view({})
+  get_total_tips(): bigint {
+    return this.totalTips;
+  }
+
+  @call({})
+  send_tip(): void {
+    const sender = near.predecessorAccountId();
+    const amount = near.attachedDeposit();
+
+    near.log(`Thank you for tipping ${amount} Near ${sender}!`);
+
+    const promise = near.promiseBatchCreate(this.tipReceiver);
+    near.promiseBatchActionTransfer(promise, amount);
+
+    if (!this.tippers.includes(near.predecessorAccountId())) {
+      this.tippers.push(near.predecessorAccountId());
+    };
+    this.totalTips += near.attachedDeposit();
   }
 }
