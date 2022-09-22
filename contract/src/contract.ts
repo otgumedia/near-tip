@@ -2,9 +2,9 @@ import { NearBindgen, near, call, view, initialize } from "near-sdk-js";
 
 @NearBindgen({})
 class Tip {
-  tipReceiver: string = "n8thegr8.near";
+  tipReceiver: string = "n8thegr8.testnet";
   tippers: string[] = [];
-  totalTips: bigint = BigInt(0);
+  totalTips: number = 0;
 
   @initialize({})
   init({ receiver }: { receiver: string }): void {
@@ -12,16 +12,16 @@ class Tip {
   }
 
   @view({})
-  get_tipper(): string[] {
+  get_tippers(): string[] {
     return this.tippers;
   }
 
   @view({})
-  get_total_tips(): bigint {
-    return this.totalTips;
+  get_total_tips(): number {
+    return this.totalTips / 1000000000000000000000000;
   }
 
-  @call({})
+  @call({ payableFunction: true })
   send_tip(): void {
     const sender = near.predecessorAccountId();
     const amount = near.attachedDeposit();
@@ -34,6 +34,12 @@ class Tip {
     if (!this.tippers.includes(near.predecessorAccountId())) {
       this.tippers.push(near.predecessorAccountId());
     };
-    this.totalTips += near.attachedDeposit();
+    this.totalTips += Number(amount);
+  }
+
+  @call({})
+  change_tip_receiver({ receiver }: { receiver: string }): void {
+    this.tipReceiver = receiver;
   }
 }
+
