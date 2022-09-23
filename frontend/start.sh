@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CONTRACT_DIRECTORY=../contract
-DEV_ACCOUNT_FILE="${CONTRACT_DIRECTORY}/neardev/dev-account.env"
+DEV_ACCOUNT_FILE="../contract/neardev/dev-account.env"
 
 start () {
   echo The app is starting!

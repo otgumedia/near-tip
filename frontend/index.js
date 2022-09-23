@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 // NEAR
-import { HelloNEAR } from "./near-interface";
+import { Tip } from "./near-interface";
 import { Wallet } from "./near-wallet";
 
 // When creating the wallet you can optionally ask to create an access key
@@ -12,7 +12,7 @@ import { Wallet } from "./near-wallet";
 const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME });
 
 // Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({
+const tip = new Tip({
   contractId: process.env.CONTRACT_NAME,
   walletToUse: wallet,
 });
@@ -22,7 +22,7 @@ window.onload = async () => {
   const isSignedIn = await wallet.startUp();
 
   ReactDOM.render(
-    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    <App isSignedIn={isSignedIn} tip={tip} wallet={wallet} />,
     document.getElementById("root")
   );
 };
