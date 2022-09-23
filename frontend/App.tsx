@@ -1,15 +1,17 @@
 import "regenerator-runtime/runtime";
-
-import React from "react";
-
 import "./assets/global.css";
-import { utils } from "near-api-js";
+import React from "react";
+import BasicSignIn from "./components/BasicSignIn/BasicSignIn";
+import BasicApp from "./components/BasicApp/BasicApp";
 
-const App = () => {
-  const num = 5;
+const App = ({ isSignedIn, tip, wallet }) => {
   return (
-    <div>
-      <div>{utils.format.parseNearAmount(num.toString())}</div>
+    <div className="container">
+      {!isSignedIn ? (
+        <BasicSignIn wallet={wallet} />
+      ) : (
+        <BasicApp tip={tip} wallet={wallet} />
+      )}
     </div>
   );
 };

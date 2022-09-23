@@ -27083,23 +27083,33 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _runtime = require("regenerator-runtime/runtime");
+var _globalCss = require("./assets/global.css");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _globalCss = require("./assets/global.css");
-var _nearApiJs = require("near-api-js");
-const App = ()=>{
-    const num = 5;
+var _basicSignIn = require("./components/BasicSignIn/BasicSignIn");
+var _basicSignInDefault = parcelHelpers.interopDefault(_basicSignIn);
+var _basicApp = require("./components/BasicApp/BasicApp");
+var _basicAppDefault = parcelHelpers.interopDefault(_basicApp);
+const App = ({ isSignedIn , tip , wallet  })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: (0, _nearApiJs.utils).format.parseNearAmount(num.toString())
+        className: "container",
+        children: !isSignedIn ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _basicSignInDefault.default), {
+            wallet: wallet
         }, void 0, false, {
             fileName: "App.tsx",
-            lineNumber: 12,
-            columnNumber: 7
+            lineNumber: 11,
+            columnNumber: 9
+        }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _basicAppDefault.default), {
+            tip: tip,
+            wallet: wallet
+        }, void 0, false, {
+            fileName: "App.tsx",
+            lineNumber: 13,
+            columnNumber: 9
         }, undefined)
     }, void 0, false, {
         fileName: "App.tsx",
-        lineNumber: 11,
+        lineNumber: 9,
         columnNumber: 5
     }, undefined);
 };
@@ -27113,7 +27123,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","regenerator-runtime/runtime":"dXNgZ","react":"21dqq","./assets/global.css":"1hP5v","near-api-js":"ohc3m","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"dXNgZ":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","regenerator-runtime/runtime":"dXNgZ","./assets/global.css":"1hP5v","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/BasicSignIn/BasicSignIn":"5poGb","./components/BasicApp/BasicApp":"9h7ZN"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -27680,7 +27690,410 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"1hP5v":[function() {},{}],"ohc3m":[function(require,module,exports) {
+},{}],"1hP5v":[function() {},{}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"km3Ru":[function(require,module,exports) {
+"use strict";
+var Refresh = require("react-refresh/runtime");
+function debounce(func, delay) {
+    var args;
+    var timeout = undefined;
+    return function(args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            timeout = undefined;
+            func.call(null, args);
+        }, delay);
+    };
+}
+var enqueueUpdate = debounce(function() {
+    Refresh.performReactRefresh();
+}, 30); // Everthing below is either adapted or copied from
+// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
+// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
+module.exports.prelude = function(module1) {
+    window.$RefreshReg$ = function(type, id) {
+        Refresh.register(type, module1.id + " " + id);
+    };
+    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
+};
+module.exports.postlude = function(module1) {
+    if (isReactRefreshBoundary(module1.exports)) {
+        registerExportsForReactRefresh(module1);
+        if (module1.hot) {
+            module1.hot.dispose(function(data) {
+                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
+                data.prevExports = module1.exports;
+            });
+            module1.hot.accept(function(getParents) {
+                var prevExports = module1.hot.data.prevExports;
+                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
+                // that the new exports make it ineligible for being a boundary.
+                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
+                // with the previous exports.
+                // For example, if you add/remove/change exports, we'll want
+                // to re-execute the importing modules, and force those components
+                // to re-render. Similarly, if you convert a class component
+                // to a function, we want to invalidate the boundary.
+                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
+                if (isNoLongerABoundary || didInvalidate) {
+                    // We'll be conservative. The only case in which we won't do a full
+                    // reload is if all parent modules are also refresh boundaries.
+                    // In that case we'll add them to the current queue.
+                    var parents = getParents();
+                    if (parents.length === 0) {
+                        // Looks like we bubbled to the root. Can't recover from that.
+                        window.location.reload();
+                        return;
+                    }
+                    return parents;
+                }
+                enqueueUpdate();
+            });
+        }
+    }
+};
+function isReactRefreshBoundary(exports) {
+    if (Refresh.isLikelyComponentType(exports)) return true;
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    return false;
+    var hasExports = false;
+    var areAllExportsComponents = true;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        hasExports = true;
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
+        return false;
+        var exportValue = exports[key];
+        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
+    }
+    return hasExports && areAllExportsComponents;
+}
+function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
+    var prevSignature = getRefreshBoundarySignature(prevExports);
+    var nextSignature = getRefreshBoundarySignature(nextExports);
+    if (prevSignature.length !== nextSignature.length) return true;
+    for(var i = 0; i < nextSignature.length; i++){
+        if (prevSignature[i] !== nextSignature[i]) return true;
+    }
+    return false;
+} // When this signature changes, it's unsafe to stop at this refresh boundary.
+function getRefreshBoundarySignature(exports) {
+    var signature = [];
+    signature.push(Refresh.getFamilyByType(exports));
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return signature;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        signature.push(key);
+        signature.push(Refresh.getFamilyByType(exportValue));
+    }
+    return signature;
+}
+function registerExportsForReactRefresh(module1) {
+    var exports = module1.exports, id = module1.id;
+    Refresh.register(exports, id + " %exports%");
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        Refresh.register(exportValue, id + " %exports% " + key);
+    }
+}
+
+},{"react-refresh/runtime":"786KC"}],"5poGb":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$d916 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$d916.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _basicSignInCss = require("./BasicSignIn.css");
+const BasicSignIn = ({ wallet  })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: `container`,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                children: "Near Tip Starter"
+            }, void 0, false, {
+                fileName: "components/BasicSignIn/BasicSignIn.tsx",
+                lineNumber: 7,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>wallet.signIn(),
+                children: "Sign In HERE!"
+            }, void 0, false, {
+                fileName: "components/BasicSignIn/BasicSignIn.tsx",
+                lineNumber: 8,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "components/BasicSignIn/BasicSignIn.tsx",
+        lineNumber: 6,
+        columnNumber: 5
+    }, undefined);
+};
+_c = BasicSignIn;
+exports.default = BasicSignIn;
+var _c;
+$RefreshReg$(_c, "BasicSignIn");
+
+  $parcel$ReactRefreshHelpers$d916.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./BasicSignIn.css":"5gzuN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"5gzuN":[function() {},{}],"9h7ZN":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$6637 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$6637.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _basicAppCss = require("./BasicApp.css");
+const BasicApp = ({ tip , wallet  })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: `container`,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                children: [
+                    "Welcome ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                        fileName: "components/BasicApp/BasicApp.tsx",
+                        lineNumber: 8,
+                        columnNumber: 17
+                    }, undefined),
+                    wallet.accountId
+                ]
+            }, void 0, true, {
+                fileName: "components/BasicApp/BasicApp.tsx",
+                lineNumber: 7,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>wallet.signOut(),
+                children: "Logout"
+            }, void 0, false, {
+                fileName: "components/BasicApp/BasicApp.tsx",
+                lineNumber: 11,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "components/BasicApp/BasicApp.tsx",
+        lineNumber: 6,
+        columnNumber: 5
+    }, undefined);
+};
+_c = BasicApp;
+exports.default = BasicApp;
+var _c;
+$RefreshReg$(_c, "BasicApp");
+
+  $parcel$ReactRefreshHelpers$6637.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./BasicApp.css":"fo65q","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fo65q":[function() {},{}],"aahG8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */ parcelHelpers.export(exports, "Tip", ()=>Tip);
+class Tip {
+    constructor({ contractId , walletToUse  }){
+        this.contractId = contractId;
+        this.wallet = walletToUse;
+    }
+    async getTippers() {
+        return await this.wallet.viewMethod({
+            contractId: this.contractId,
+            method: "get_tippers"
+        });
+    }
+    async getTotalTips() {
+        return await this.wallet.viewMethod({
+            contractId: this.contractId,
+            method: "get_total_tips"
+        });
+    }
+    async sendTip(amount) {
+        let deposit = utils.format.parseNearAmount(amount.toString());
+        let response = await this.wallet.callMethod({
+            contractId: this.contractId,
+            method: "send_tip",
+            deposit
+        });
+        return response;
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dg9wB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Wallet that simplifies using the wallet selector
+parcelHelpers.export(exports, "Wallet", ()=>Wallet);
+/* A helper file that simplifies using the wallet selector */ // near api js
+var _nearApiJs = require("near-api-js");
+// wallet selector UI
+var _stylesCss = require("@near-wallet-selector/modal-ui/styles.css");
+var _modalUi = require("@near-wallet-selector/modal-ui");
+var _ledgerIconPng = require("@near-wallet-selector/ledger/assets/ledger-icon.png");
+var _ledgerIconPngDefault = parcelHelpers.interopDefault(_ledgerIconPng);
+var _myNearWalletIconPng = require("@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png");
+var _myNearWalletIconPngDefault = parcelHelpers.interopDefault(_myNearWalletIconPng);
+// wallet selector options
+var _core = require("@near-wallet-selector/core");
+var _ledger = require("@near-wallet-selector/ledger");
+var _myNearWallet = require("@near-wallet-selector/my-near-wallet");
+var Buffer = require("buffer").Buffer;
+const THIRTY_TGAS = "30000000000000";
+const NO_DEPOSIT = "0";
+class Wallet {
+    walletSelector;
+    wallet;
+    network;
+    createAccessKeyFor;
+    constructor({ createAccessKeyFor , network ="testnet"  }){
+        // Login to a wallet passing a contractId will create a local
+        // key, so the user skips signing non-payable transactions.
+        // Omitting the accountId will result in the user being
+        // asked to sign all transactions.
+        this.createAccessKeyFor = createAccessKeyFor;
+        this.network = "testnet";
+    }
+    // To be called when the website loads
+    async startUp() {
+        this.walletSelector = await (0, _core.setupWalletSelector)({
+            network: this.network,
+            modules: [
+                (0, _myNearWallet.setupMyNearWallet)({
+                    iconUrl: (0, _myNearWalletIconPngDefault.default)
+                }),
+                (0, _ledger.setupLedger)({
+                    iconUrl: (0, _ledgerIconPngDefault.default)
+                }), 
+            ]
+        });
+        const isSignedIn = this.walletSelector.isSignedIn();
+        if (isSignedIn) {
+            this.wallet = await this.walletSelector.wallet();
+            this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
+        }
+        return isSignedIn;
+    }
+    // Sign-in method
+    signIn() {
+        const description = "Please select a wallet to sign in.";
+        const modal = (0, _modalUi.setupModal)(this.walletSelector, {
+            contractId: this.createAccessKeyFor,
+            description
+        });
+        modal.show();
+    }
+    // Sign-out method
+    signOut() {
+        this.wallet.signOut();
+        this.wallet = this.accountId = this.createAccessKeyFor = null;
+        window.location.replace(window.location.origin + window.location.pathname);
+    }
+    // Make a read-only call to retrieve information from the network
+    async viewMethod({ contractId , method , args ={}  }) {
+        const { network  } = this.walletSelector.options;
+        const provider = new (0, _nearApiJs.providers).JsonRpcProvider({
+            url: network.nodeUrl
+        });
+        let res = await provider.query({
+            request_type: "call_function",
+            account_id: contractId,
+            method_name: method,
+            args_base64: Buffer.from(JSON.stringify(args)).toString("base64"),
+            finality: "optimistic"
+        });
+        return JSON.parse(Buffer.from(res.result).toString());
+    }
+    // Call a method that changes the contract's state
+    async callMethod({ contractId , method , args ={} , gas =THIRTY_TGAS , deposit =NO_DEPOSIT ,  }) {
+        // Sign a transaction with the "FunctionCall" action
+        return await this.wallet.signAndSendTransaction({
+            signerId: this.accountId,
+            receiverId: contractId,
+            actions: [
+                {
+                    type: "FunctionCall",
+                    params: {
+                        methodName: method,
+                        args,
+                        gas,
+                        deposit
+                    }
+                }, 
+            ]
+        });
+    }
+    // Get transaction result from the network
+    async getTransactionResult(txhash) {
+        const { network  } = this.walletSelector.options;
+        const provider = new (0, _nearApiJs.providers).JsonRpcProvider({
+            url: network.nodeUrl
+        });
+        // Retrieve transaction result from the network
+        const transaction = await provider.txStatus(txhash, "unnused");
+        return (0, _nearApiJs.providers).getTransactionLastResult(transaction);
+    }
+}
+
+},{"near-api-js":"ohc3m","@near-wallet-selector/modal-ui/styles.css":"b4TAP","@near-wallet-selector/modal-ui":"1nDKo","@near-wallet-selector/ledger/assets/ledger-icon.png":"dGAA6","@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png":"aTHwi","@near-wallet-selector/core":"eEY3a","@near-wallet-selector/ledger":"9enQf","@near-wallet-selector/my-near-wallet":"bYYGG","buffer":"cxQ94","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ohc3m":[function(require,module,exports) {
 "use strict";
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -30854,7 +31267,7 @@ function deserializeUnchecked(schema, classType, buffer, Reader = BinaryReader) 
 }
 exports.deserializeUnchecked = deserializeUnchecked;
 
-},{"buffer":"9ofsZ","bn.js":"VopIn","bs58":"4ji3p","text-encoding-utf-8":"feCA6"}],"9ofsZ":[function(require,module,exports) {
+},{"buffer":"cxQ94","bn.js":"VopIn","bs58":"4ji3p","text-encoding-utf-8":"feCA6"}],"cxQ94":[function(require,module,exports) {
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -32084,7 +32497,7 @@ var hexSliceLookupTable = function() {
     return table;
 }();
 
-},{"base64-js":"jxtqo","ieee754":"aDSm8"}],"jxtqo":[function(require,module,exports) {
+},{"base64-js":"8rVTo","ieee754":"emzfI"}],"8rVTo":[function(require,module,exports) {
 "use strict";
 exports.byteLength = byteLength;
 exports.toByteArray = toByteArray;
@@ -32184,7 +32597,7 @@ function fromByteArray(uint8) {
     return parts.join("");
 }
 
-},{}],"aDSm8":[function(require,module,exports) {
+},{}],"emzfI":[function(require,module,exports) {
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */ exports.read = function(buffer, offset, isLE, mLen, nBytes) {
     var e, m;
     var eLen = nBytes * 8 - mLen - 1;
@@ -35179,7 +35592,7 @@ SafeBuffer.allocUnsafeSlow = function(size) {
     return buffer.SlowBuffer(size);
 };
 
-},{"buffer":"9ofsZ"}],"feCA6":[function(require,module,exports) {
+},{"buffer":"cxQ94"}],"feCA6":[function(require,module,exports) {
 "use strict";
 // This is free and unencumbered software released into the public domain.
 // See LICENSE.md for more information.
@@ -36045,7 +36458,7 @@ exports.Provider = Provider;
 }
 exports.getTransactionLastResult = getTransactionLastResult;
 
-},{"buffer":"9ofsZ"}],"kzXVU":[function(require,module,exports) {
+},{"buffer":"cxQ94"}],"kzXVU":[function(require,module,exports) {
 "use strict";
 var Buffer = require("buffer").Buffer;
 var __importDefault = this && this.__importDefault || function(mod) {
@@ -36405,7 +36818,7 @@ let _nextId = 123;
 }
 exports.JsonRpcProvider = JsonRpcProvider;
 
-},{"buffer":"9ofsZ","depd":"2jGeI","./provider":"cUEh0","../utils/web":"iSqiB","../utils/errors":"btMYy","borsh":"4JCmN","../utils/exponential-backoff":"51I5X","../utils/rpc_errors":"1TB1L"}],"2jGeI":[function(require,module,exports) {
+},{"buffer":"cxQ94","depd":"2jGeI","./provider":"cUEh0","../utils/web":"iSqiB","../utils/errors":"btMYy","borsh":"4JCmN","../utils/exponential-backoff":"51I5X","../utils/rpc_errors":"1TB1L"}],"2jGeI":[function(require,module,exports) {
 /*!
  * depd
  * Copyright(c) 2015 Douglas Christopher Wilson
@@ -41160,7 +41573,7 @@ async function signTransaction(...args) {
 }
 exports.signTransaction = signTransaction;
 
-},{"buffer":"9ofsZ","js-sha256":"ahVaM","./utils/enums":"kjmPo","borsh":"4JCmN","./utils/key_pair":"kBQFP"}],"ahVaM":[function(require,module,exports) {
+},{"buffer":"cxQ94","js-sha256":"ahVaM","./utils/enums":"kjmPo","borsh":"4JCmN","./utils/key_pair":"kBQFP"}],"ahVaM":[function(require,module,exports) {
 var process = require("process");
 var global = arguments[3];
 /**
@@ -42166,7 +42579,7 @@ function bytesJsonStringify(input) {
 }
 exports.Account = Account;
 
-},{"buffer":"9ofsZ","bn.js":"9pdNn","depd":"2jGeI","./transaction":"jJQ5a","./providers":"gtL2a","borsh":"4JCmN","./utils/key_pair":"kBQFP","./utils/errors":"btMYy","./utils/rpc_errors":"1TB1L","./constants":"lUNnG","./utils/exponential-backoff":"51I5X"}],"lUNnG":[function(require,module,exports) {
+},{"buffer":"cxQ94","bn.js":"9pdNn","depd":"2jGeI","./transaction":"jJQ5a","./providers":"gtL2a","borsh":"4JCmN","./utils/key_pair":"kBQFP","./utils/errors":"btMYy","./utils/rpc_errors":"1TB1L","./constants":"lUNnG","./utils/exponential-backoff":"51I5X"}],"lUNnG":[function(require,module,exports) {
 "use strict";
 var __importDefault = this && this.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : {
@@ -42506,7 +42919,7 @@ const convertActions = (actions, accountId, receiverId)=>actions.map((a)=>{
         return action;
     });
 
-},{"buffer":"9ofsZ","bn.js":"9pdNn","depd":"2jGeI","./account":"hxSQV","./utils/format":"16c5X","./utils/key_pair":"kBQFP","./transaction":"jJQ5a","./utils/web":"iSqiB"}],"aQbxV":[function(require,module,exports) {
+},{"buffer":"cxQ94","bn.js":"9pdNn","depd":"2jGeI","./account":"hxSQV","./utils/format":"16c5X","./utils/key_pair":"kBQFP","./transaction":"jJQ5a","./utils/web":"iSqiB"}],"aQbxV":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -43200,7 +43613,7 @@ exports.WalletAccount = WalletConnection;
 }
 exports.ConnectedWalletAccount = ConnectedWalletAccount;
 
-},{"buffer":"9ofsZ","depd":"2jGeI","./account":"hxSQV","./transaction":"jJQ5a","./utils":"jOCMH","borsh":"4JCmN"}],"7yTE6":[function(require,module,exports) {
+},{"buffer":"cxQ94","depd":"2jGeI","./account":"hxSQV","./transaction":"jJQ5a","./utils":"jOCMH","borsh":"4JCmN"}],"7yTE6":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -43804,304 +44217,7 @@ module.exports = function() {
     };
 };
 
-},{"u3":"dIyaj","./prepareStackTrace":"85RZD"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"km3Ru":[function(require,module,exports) {
-"use strict";
-var Refresh = require("react-refresh/runtime");
-function debounce(func, delay) {
-    var args;
-    var timeout = undefined;
-    return function(args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            timeout = undefined;
-            func.call(null, args);
-        }, delay);
-    };
-}
-var enqueueUpdate = debounce(function() {
-    Refresh.performReactRefresh();
-}, 30); // Everthing below is either adapted or copied from
-// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
-// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
-module.exports.prelude = function(module1) {
-    window.$RefreshReg$ = function(type, id) {
-        Refresh.register(type, module1.id + " " + id);
-    };
-    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
-};
-module.exports.postlude = function(module1) {
-    if (isReactRefreshBoundary(module1.exports)) {
-        registerExportsForReactRefresh(module1);
-        if (module1.hot) {
-            module1.hot.dispose(function(data) {
-                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
-                data.prevExports = module1.exports;
-            });
-            module1.hot.accept(function(getParents) {
-                var prevExports = module1.hot.data.prevExports;
-                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
-                // that the new exports make it ineligible for being a boundary.
-                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
-                // with the previous exports.
-                // For example, if you add/remove/change exports, we'll want
-                // to re-execute the importing modules, and force those components
-                // to re-render. Similarly, if you convert a class component
-                // to a function, we want to invalidate the boundary.
-                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
-                if (isNoLongerABoundary || didInvalidate) {
-                    // We'll be conservative. The only case in which we won't do a full
-                    // reload is if all parent modules are also refresh boundaries.
-                    // In that case we'll add them to the current queue.
-                    var parents = getParents();
-                    if (parents.length === 0) {
-                        // Looks like we bubbled to the root. Can't recover from that.
-                        window.location.reload();
-                        return;
-                    }
-                    return parents;
-                }
-                enqueueUpdate();
-            });
-        }
-    }
-};
-function isReactRefreshBoundary(exports) {
-    if (Refresh.isLikelyComponentType(exports)) return true;
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    return false;
-    var hasExports = false;
-    var areAllExportsComponents = true;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        hasExports = true;
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
-        return false;
-        var exportValue = exports[key];
-        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
-    }
-    return hasExports && areAllExportsComponents;
-}
-function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
-    var prevSignature = getRefreshBoundarySignature(prevExports);
-    var nextSignature = getRefreshBoundarySignature(nextExports);
-    if (prevSignature.length !== nextSignature.length) return true;
-    for(var i = 0; i < nextSignature.length; i++){
-        if (prevSignature[i] !== nextSignature[i]) return true;
-    }
-    return false;
-} // When this signature changes, it's unsafe to stop at this refresh boundary.
-function getRefreshBoundarySignature(exports) {
-    var signature = [];
-    signature.push(Refresh.getFamilyByType(exports));
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return signature;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        signature.push(key);
-        signature.push(Refresh.getFamilyByType(exportValue));
-    }
-    return signature;
-}
-function registerExportsForReactRefresh(module1) {
-    var exports = module1.exports, id = module1.id;
-    Refresh.register(exports, id + " %exports%");
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        Refresh.register(exportValue, id + " %exports% " + key);
-    }
-}
-
-},{"react-refresh/runtime":"786KC"}],"aahG8":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */ parcelHelpers.export(exports, "Tip", ()=>Tip);
-class Tip {
-    constructor({ contractId , walletToUse  }){
-        this.contractId = contractId;
-        this.wallet = walletToUse;
-    }
-    async getTippers() {
-        return await this.wallet.viewMethod({
-            contractId: this.contractId,
-            method: "get_tippers"
-        });
-    }
-    async getTotalTips() {
-        return await this.wallet.viewMethod({
-            contractId: this.contractId,
-            method: "get_total_tips"
-        });
-    }
-    async sendTip(amount) {
-        let deposit = utils.format.parseNearAmount(amount.toString());
-        let response = await this.wallet.callMethod({
-            contractId: this.contractId,
-            method: "send_tip",
-            deposit
-        });
-        return response;
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dg9wB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// Wallet that simplifies using the wallet selector
-parcelHelpers.export(exports, "Wallet", ()=>Wallet);
-/* A helper file that simplifies using the wallet selector */ // near api js
-var _nearApiJs = require("near-api-js");
-// wallet selector UI
-var _stylesCss = require("@near-wallet-selector/modal-ui/styles.css");
-var _modalUi = require("@near-wallet-selector/modal-ui");
-var _ledgerIconPng = require("@near-wallet-selector/ledger/assets/ledger-icon.png");
-var _ledgerIconPngDefault = parcelHelpers.interopDefault(_ledgerIconPng);
-var _myNearWalletIconPng = require("@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png");
-var _myNearWalletIconPngDefault = parcelHelpers.interopDefault(_myNearWalletIconPng);
-// wallet selector options
-var _core = require("@near-wallet-selector/core");
-var _ledger = require("@near-wallet-selector/ledger");
-var _myNearWallet = require("@near-wallet-selector/my-near-wallet");
-var Buffer = require("buffer").Buffer;
-const THIRTY_TGAS = "30000000000000";
-const NO_DEPOSIT = "0";
-class Wallet {
-    walletSelector;
-    wallet;
-    network;
-    createAccessKeyFor;
-    constructor({ createAccessKeyFor , network ="testnet"  }){
-        // Login to a wallet passing a contractId will create a local
-        // key, so the user skips signing non-payable transactions.
-        // Omitting the accountId will result in the user being
-        // asked to sign all transactions.
-        this.createAccessKeyFor = createAccessKeyFor;
-        this.network = "testnet";
-    }
-    // To be called when the website loads
-    async startUp() {
-        this.walletSelector = await (0, _core.setupWalletSelector)({
-            network: this.network,
-            modules: [
-                (0, _myNearWallet.setupMyNearWallet)({
-                    iconUrl: (0, _myNearWalletIconPngDefault.default)
-                }),
-                (0, _ledger.setupLedger)({
-                    iconUrl: (0, _ledgerIconPngDefault.default)
-                }), 
-            ]
-        });
-        const isSignedIn = this.walletSelector.isSignedIn();
-        if (isSignedIn) {
-            this.wallet = await this.walletSelector.wallet();
-            this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
-        }
-        return isSignedIn;
-    }
-    // Sign-in method
-    signIn() {
-        const description = "Please select a wallet to sign in.";
-        const modal = (0, _modalUi.setupModal)(this.walletSelector, {
-            contractId: this.createAccessKeyFor,
-            description
-        });
-        modal.show();
-    }
-    // Sign-out method
-    signOut() {
-        this.wallet.signOut();
-        this.wallet = this.accountId = this.createAccessKeyFor = null;
-        window.location.replace(window.location.origin + window.location.pathname);
-    }
-    // Make a read-only call to retrieve information from the network
-    async viewMethod({ contractId , method , args ={}  }) {
-        const { network  } = this.walletSelector.options;
-        const provider = new (0, _nearApiJs.providers).JsonRpcProvider({
-            url: network.nodeUrl
-        });
-        let res = await provider.query({
-            request_type: "call_function",
-            account_id: contractId,
-            method_name: method,
-            args_base64: Buffer.from(JSON.stringify(args)).toString("base64"),
-            finality: "optimistic"
-        });
-        return JSON.parse(Buffer.from(res.result).toString());
-    }
-    // Call a method that changes the contract's state
-    async callMethod({ contractId , method , args ={} , gas =THIRTY_TGAS , deposit =NO_DEPOSIT ,  }) {
-        // Sign a transaction with the "FunctionCall" action
-        return await this.wallet.signAndSendTransaction({
-            signerId: this.accountId,
-            receiverId: contractId,
-            actions: [
-                {
-                    type: "FunctionCall",
-                    params: {
-                        methodName: method,
-                        args,
-                        gas,
-                        deposit
-                    }
-                }, 
-            ]
-        });
-    }
-    // Get transaction result from the network
-    async getTransactionResult(txhash) {
-        const { network  } = this.walletSelector.options;
-        const provider = new (0, _nearApiJs.providers).JsonRpcProvider({
-            url: network.nodeUrl
-        });
-        // Retrieve transaction result from the network
-        const transaction = await provider.txStatus(txhash, "unnused");
-        return (0, _nearApiJs.providers).getTransactionLastResult(transaction);
-    }
-}
-
-},{"near-api-js":"ohc3m","@near-wallet-selector/modal-ui/styles.css":"b4TAP","@near-wallet-selector/modal-ui":"1nDKo","@near-wallet-selector/ledger/assets/ledger-icon.png":"dGAA6","@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png":"aTHwi","@near-wallet-selector/core":"eEY3a","@near-wallet-selector/ledger":"9enQf","@near-wallet-selector/my-near-wallet":"bYYGG","buffer":"9ofsZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b4TAP":[function() {},{}],"1nDKo":[function(require,module,exports) {
+},{"u3":"dIyaj","./prepareStackTrace":"85RZD"}],"b4TAP":[function() {},{}],"1nDKo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setupModal", ()=>setupModal);
@@ -54240,8 +54356,8 @@ var _core = require("@near-wallet-selector/core");
 var _hwTransportWebhid = require("@ledgerhq/hw-transport-webhid");
 var _hwTransportWebhidDefault = parcelHelpers.interopDefault(_hwTransportWebhid);
 var _nearApiJs = require("near-api-js");
-var global = arguments[3];
 var Buffer = require("buffer").Buffer;
+var global = arguments[3];
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -56498,7 +56614,7 @@ function setupLedger({ iconUrl =icon , deprecated =false  } = {}) {
         });
 }
 
-},{"is-mobile":"2AVrM","@near-wallet-selector/wallet-utils":"5gEB8","@near-wallet-selector/core":"eEY3a","@ledgerhq/hw-transport-webhid":"8O295","near-api-js":"ohc3m","buffer":"9ofsZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2AVrM":[function(require,module,exports) {
+},{"is-mobile":"2AVrM","@near-wallet-selector/wallet-utils":"5gEB8","@near-wallet-selector/core":"eEY3a","@ledgerhq/hw-transport-webhid":"8O295","near-api-js":"ohc3m","buffer":"cxQ94","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2AVrM":[function(require,module,exports) {
 "use strict";
 module.exports = isMobile;
 module.exports.isMobile = isMobile;
@@ -59486,7 +59602,7 @@ function getFirstLedgerDevice() {
 }((0, _hwTransportDefault.default));
 exports.default = TransportWebHID;
 
-},{"@ledgerhq/hw-transport":"fQDd5","@ledgerhq/devices/lib/hid-framing":"fvgJh","@ledgerhq/devices":"fnHxP","@ledgerhq/logs":"i4OI0","@ledgerhq/errors":"EVZMy","buffer":"9ofsZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fQDd5":[function(require,module,exports) {
+},{"@ledgerhq/hw-transport":"fQDd5","@ledgerhq/devices/lib/hid-framing":"fvgJh","@ledgerhq/devices":"fnHxP","@ledgerhq/logs":"i4OI0","@ledgerhq/errors":"EVZMy","buffer":"cxQ94","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fQDd5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "TransportError", ()=>(0, _errors.TransportError));
@@ -59935,7 +60051,7 @@ var __values = undefined && undefined.__values || function(o) {
 }();
 exports.default = Transport;
 
-},{"events":"1VQLm","@ledgerhq/errors":"EVZMy","buffer":"9ofsZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1VQLm":[function(require,module,exports) {
+},{"events":"1VQLm","@ledgerhq/errors":"EVZMy","buffer":"cxQ94","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1VQLm":[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -60830,7 +60946,7 @@ var initialAcc = {
 };
 exports["default"] = createHIDframing;
 
-},{"buffer":"9ofsZ","@ledgerhq/errors":"EVZMy"}],"fnHxP":[function(require,module,exports) {
+},{"buffer":"cxQ94","@ledgerhq/errors":"EVZMy"}],"fnHxP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "IIGenericHID", ()=>IIGenericHID);
