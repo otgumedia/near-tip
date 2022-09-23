@@ -1,13 +1,17 @@
 import "regenerator-runtime/runtime";
-
-import React from "react";
-
 import "./assets/global.css";
+import React from "react";
+import BasicSignIn from "./components/BasicSignIn/BasicSignIn";
+import BasicApp from "./components/BasicApp/BasicApp";
 
-const App = () => {
+const App = ({ isSignedIn, tip, wallet }) => {
   return (
-    <div>
-      <div>App</div>
+    <div className="container">
+      {!isSignedIn ? (
+        <BasicSignIn wallet={wallet} />
+      ) : (
+        <BasicApp tip={tip} wallet={wallet} />
+      )}
     </div>
   );
 };

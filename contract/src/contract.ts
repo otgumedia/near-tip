@@ -33,13 +33,12 @@ class Tip {
 
     if (!this.tippers.includes(near.predecessorAccountId())) {
       this.tippers.push(near.predecessorAccountId());
-    };
+    }
     this.totalTips += Number(amount);
   }
 
-  @call({})
+  @call({ privateFunction: true })
   change_tip_receiver({ receiver }: { receiver: string }): void {
     this.tipReceiver = receiver;
   }
 }
-

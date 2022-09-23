@@ -1,23 +1,32 @@
 /* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-export class HelloNEAR {
+export class Tip {
   constructor({ contractId, walletToUse }) {
     this.contractId = contractId;
     this.wallet = walletToUse;
   }
 
-  async getGreeting() {
+  async getTippers() {
     return await this.wallet.viewMethod({
       contractId: this.contractId,
-      method: "get_greeting",
+      method: "get_tippers",
     });
   }
 
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({
+  async getTotalTips() {
+    return await this.wallet.viewMethod({
       contractId: this.contractId,
-      method: "set_greeting",
-      args: { message: greeting },
+      method: "get_total_tips",
     });
+  }
+
+  async sendTip(amount) {
+    let deposit = utils.format.parseNearAmount(amount.toString());
+    let response = await this.wallet.callMethod({
+      contractId: this.contractId,
+      method: "send_tip",
+      deposit,
+    });
+    return response;
   }
 }

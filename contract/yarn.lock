@@ -1855,7 +1855,7 @@ near-ledger-js@^0.2.0:
     bs58 "^4.0.1"
     platform "^1.3.6"
 
-near-sdk-js@0.5.0:
+near-sdk-js@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/near-sdk-js/-/near-sdk-js-0.5.0.tgz#26644c7147689702cd8d0b0c4ddd5f364522612d"
   integrity sha512-wwQTCT+7bu0CahlNxlG5RGaxDiUJQSnjT7GwmK/d2p7Y5PkwWv1K5ZBsZMLOTU3fnhv0Y1LJ6lp00O9kZZLR5Q==
