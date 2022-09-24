@@ -10,7 +10,7 @@
     "build:contract": "cd contract && yarn build",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "cd contract && yarn test",
-    "test:integration": "cd integration-tests && yarn test -- -- \"./contract/build/hello_near.wasm\"",
+    "test:integration": "cd integration-tests && yarn test -- -- \"./contract/build/contract.wasm\"",
     "postinstall": "cd frontend && yarn && cd .. && cd integration-tests && yarn && cd .. && cd contract && yarn",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
