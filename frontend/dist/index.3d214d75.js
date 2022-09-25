@@ -27913,10 +27913,11 @@ const BasicApp = ({ tip , wallet  })=>{
     });
     const submitHandler = async (e)=>{
         e.preventDefault();
-        const res = await contract.sendTip({
-            amount
-        });
-        console.log(res);
+        try {
+            await contract.sendTip(amount);
+        } catch (e1) {
+            alert(`Error: ${e1.message}`);
+        }
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: `container`,
@@ -27926,14 +27927,14 @@ const BasicApp = ({ tip , wallet  })=>{
                     "Welcome ",
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "components/BasicApp/BasicApp.tsx",
-                        lineNumber: 21,
+                        lineNumber: 25,
                         columnNumber: 17
                     }, undefined),
                     wallet.accountId
                 ]
             }, void 0, true, {
                 fileName: "components/BasicApp/BasicApp.tsx",
-                lineNumber: 20,
+                lineNumber: 24,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
@@ -27945,7 +27946,7 @@ const BasicApp = ({ tip , wallet  })=>{
                         children: "Tip"
                     }, void 0, false, {
                         fileName: "components/BasicApp/BasicApp.tsx",
-                        lineNumber: 25,
+                        lineNumber: 29,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27955,7 +27956,7 @@ const BasicApp = ({ tip , wallet  })=>{
                         onChange: (e)=>setAmount(e.target.value)
                     }, void 0, false, {
                         fileName: "components/BasicApp/BasicApp.tsx",
-                        lineNumber: 26,
+                        lineNumber: 30,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27964,13 +27965,13 @@ const BasicApp = ({ tip , wallet  })=>{
                         children: "Tip"
                     }, void 0, false, {
                         fileName: "components/BasicApp/BasicApp.tsx",
-                        lineNumber: 32,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "components/BasicApp/BasicApp.tsx",
-                lineNumber: 24,
+                lineNumber: 28,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27978,13 +27979,13 @@ const BasicApp = ({ tip , wallet  })=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "components/BasicApp/BasicApp.tsx",
-                lineNumber: 36,
+                lineNumber: 40,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "components/BasicApp/BasicApp.tsx",
-        lineNumber: 19,
+        lineNumber: 23,
         columnNumber: 5
     }, undefined);
 };
@@ -30824,8 +30825,8 @@ Object.defineProperty(exports, "BinaryReader", {
 
 },{"borsh":"4JCmN"}],"4JCmN":[function(require,module,exports) {
 "use strict";
-var Buffer = require("buffer").Buffer;
 var global = arguments[3];
+var Buffer = require("buffer").Buffer;
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, {
@@ -41513,8 +41514,8 @@ async function signTransaction(...args) {
 exports.signTransaction = signTransaction;
 
 },{"buffer":"cxQ94","js-sha256":"ahVaM","./utils/enums":"kjmPo","borsh":"4JCmN","./utils/key_pair":"kBQFP"}],"ahVaM":[function(require,module,exports) {
-var process = require("process");
 var global = arguments[3];
+var process = require("process");
 /**
  * [js-sha256]{@link https://github.com/emn178/js-sha256}
  *
@@ -54410,8 +54411,8 @@ var _core = require("@near-wallet-selector/core");
 var _hwTransportWebhid = require("@ledgerhq/hw-transport-webhid");
 var _hwTransportWebhidDefault = parcelHelpers.interopDefault(_hwTransportWebhid);
 var _nearApiJs = require("near-api-js");
-var Buffer = require("buffer").Buffer;
 var global = arguments[3];
+var Buffer = require("buffer").Buffer;
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 

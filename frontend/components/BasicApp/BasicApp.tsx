@@ -4,6 +4,7 @@ import "./BasicApp.css";
 
 const BasicApp = ({ tip, wallet }) => {
   const [amount, setAmount] = useState(0);
+
   const contract = new Tip({
     contractId: process.env.CONTRACT_NAME,
     walletToUse: wallet,
@@ -11,8 +12,11 @@ const BasicApp = ({ tip, wallet }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await contract.sendTip({ amount });
-    console.log(res);
+    try {
+      await contract.sendTip(amount);
+    } catch (e) {
+      alert(`Error: ${e.message}`);
+    }
   };
 
   return (

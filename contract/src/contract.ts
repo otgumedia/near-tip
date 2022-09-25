@@ -1,7 +1,7 @@
 import { NearBindgen, near, call, view, initialize } from "near-sdk-js";
 
 @NearBindgen({})
-class Tip {
+export default class Tip {
   tipReceiver: string = "n8thegr8.testnet";
   tippers: string[] = [];
   totalTips: number = 0;
